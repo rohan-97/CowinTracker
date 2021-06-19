@@ -1,0 +1,11 @@
+body {
+    min-width:300px;
+    font-size: 100%;
+}
+.collapsible{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+body > ul > li.active > div.collapsible-body > form > button {
+    width: 100%;
+}
