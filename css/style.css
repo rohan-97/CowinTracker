@@ -10,7 +10,7 @@ body > ul > li.active > div.collapsible-body > form > button {
     width: 100%;
 }
 .vaccine_center_collapsible_body {
-    height: 245px;
+    max-height: 245px;
     overflow-y: auto;
     padding: 0;
 }

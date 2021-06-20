@@ -15,7 +15,7 @@
     <li = class="active">
       <div class="collapsible-header"><i class="material-icons">map</i>Vaccine Centres</div>
       <div class="collapsible-body vaccine_center_collapsible_body"><span>
-        <ul class="collapsible">
+        <ul id="vaccine_centre_list" class="collapsible">
           <li>
             <div class="collapsible-header"><i class="material-icons">local_hospital</i>Fortis Hospital Kalyan W - WP</div>
             <div class="collapsible-body">
@@ -63,52 +63,59 @@
             <input id="icon_prefix" id="pin_code" type="number" class="validate">
             <label for="icon_prefix">Pin Code</label>
           </div>
-          <p>Select Minimum Age</p>
-          <p>
-            <label>
-              <input name="group1" type="radio" checked />
-              <span>18</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>45</span>
-            </label>
-          </p>
+          <div id="age_selection">
+            <p>Select Minimum Age</p>
+            <p>
+              <label>
+                <input name="group1" type="radio" checked />
+                <span>18</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="group1" type="radio" />
+                <span>45</span>
+              </label>
+            </p>
+          </div>
           
-          <p>Vaccine Type:</p>
-          <p>
-            <label>
-              <input type="checkbox" />
-              <span>Covishield</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input type="checkbox" />
-              <span>Covaccine</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input type="checkbox" />
-              <span>Sputnik V</span>
-            </label>
-          </p>
-          <p>Vaccine Cost type:</p>
-          <p>
-            <label>
-              <input type="checkbox" />
-              <span>Free</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input type="checkbox" />
-              <span>Paid</span>
-            </label>
-          </p>
+          <div id="vaccine_filter">
+            <p>Vaccine Type:</p>
+            <p>
+              <label>
+                <input type="checkbox" />
+                <span>Covishield</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" />
+                <span>Covaccine</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" />
+                <span>Sputnik V</span>
+              </label>
+            </p>
+          </div>
+          <div id="vaccine_cost_selector">
+            <p>Vaccine Cost type:</p>
+            <p>
+              <label>
+                <input type="checkbox" />
+                <span>Free</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" />
+                <span>Paid</span>
+              </label>
+            </p>
+            
+          </div>
           <button class="btn waves-effect waves-light" id="settings_save" type="button" name="action">Save
             <i class="material-icons right">save</i>
           </button>
