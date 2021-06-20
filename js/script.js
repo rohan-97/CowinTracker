@@ -36,6 +36,7 @@ function get_vaccination_centres(info) {
     .then(data => {
         vaccine_center_ul_list = document.getElementById('vaccine_centre_list');
         show_not_found = true;
+        // console.log(data);
         for(centre of data.sessions.filter(apply_custom_filters)) {
             show_not_found = false;
             vaccine_center_ul_list.appendChild(prepare_list_tag(centre));
@@ -54,6 +55,9 @@ function get_vaccination_centres(info) {
     }
 
     function apply_custom_filters(vaccine_centre) {
+        if(vaccine_centre.available_capacity == 0){
+            return false;
+        }
         if(!info.cost_filter.includes(vaccine_centre.fee_type)) {
             return false;
         }
@@ -67,7 +71,7 @@ function get_vaccination_centres(info) {
     }
     
     function prepare_error_message(error_msg){
-        return prepare_message(error_message, 'error');
+        return prepare_message(error_msg, 'error');
     }
     function prepare_message(message, icon_name){
         list_tag = document.createElement('li');
