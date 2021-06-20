@@ -17,7 +17,6 @@ function populate_form() {
             set_min_age(info['min_age']);
             set_vaccines_filter(info['vaccine_filter']);
             set_cost(info['cost_filter']);
-            console.log("Rohan Debug 1 " +window.performance.now());
             get_vaccination_centres(info);
         }
     });
@@ -32,7 +31,6 @@ function get_vaccination_centres(info) {
     pincode_url.searchParams.set('date', date_string);
     url_to_be_called = String(pincode_url);
     // url_to_be_called = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=421301&date=19-6-2021";
-    console.log(url_to_be_called);
     fetch(url_to_be_called)
     .then(response => response.json())
     .then(data => {
