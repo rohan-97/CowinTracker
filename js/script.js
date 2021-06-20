@@ -1,4 +1,4 @@
-
+// TODO : didn't got change to test sputnik v specific vaccination centres, the text sputnik v with one in API might mismatch 
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.collapsible');
     var instances = M.Collapsible.init(elems, {
@@ -31,15 +31,19 @@ function get_vaccination_centres(info) {
     pincode_url.searchParams.set('pincode', info['pincode']);
     pincode_url.searchParams.set('date', date_string);
     url_to_be_called = String(pincode_url);
+    // url_to_be_called = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=421301&date=19-6-2021";
     console.log(url_to_be_called);
     fetch(url_to_be_called)
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         vaccine_center_ul_list = document.getElementById('vaccine_centre_list');
-        for(centre of data.sessions) {
-            console.log("Processing " + centre)
+        show_not_found = true;
+        for(centre of data.sessions.filter(apply_custom_filters)) {
+            show_not_found = false;
             vaccine_center_ul_list.appendChild(prepare_list_tag(centre));
+        }
+        if(show_not_found){
+            vaccine_center_ul_list.appendChild(prepare_message("No Vaccine Center available :(", 'sentiment_dissatisfied'))
         }
     }).catch(
         error => {
@@ -50,20 +54,35 @@ function get_vaccination_centres(info) {
         );
 
     }
-    
+
+    function apply_custom_filters(vaccine_centre) {
+        if(!info.cost_filter.includes(vaccine_centre.fee_type)) {
+            return false;
+        }
+        if(vaccine_centre.min_age_limit > info.min_age){
+            return false;
+        }
+        if(!info.vaccine_filter.includes(vaccine_centre.vaccine.toLowerCase())){
+            return false;
+        }
+        return true;
+    }
     
     function prepare_error_message(error_msg){
+        return prepare_message(error_message, 'error');
+    }
+    function prepare_message(message, icon_name){
         list_tag = document.createElement('li');
-        error_message = document.createElement('div');
-        error_message.classList.add("collapsible-header")
-        error_icon = document.createElement('i');
-        error_icon.classList.add('material-icons');
-        error_icon.innerText = 'error'
-        error_message.appendChild(error_icon)
-        name_text = document.createTextNode(error_msg);
-        error_message.appendChild(name_text)
-        list_tag.appendChild(error_message);
-        return list_tag
+        message_tag = document.createElement('div');
+        message_tag.classList.add("collapsible-header")
+        icon_tag = document.createElement('i');
+        icon_tag.classList.add('material-icons');
+        icon_tag.innerText = icon_name;
+        message_tag.appendChild(icon_tag);
+        name_text = document.createTextNode(message);
+        message_tag.appendChild(name_text);
+        list_tag.appendChild(message_tag);
+        return list_tag;
     }
     function prepare_list_tag(centre){
         list_tag = document.createElement('li');
@@ -125,17 +144,17 @@ function get_vaccination_centres(info) {
     function set_min_age(age) {
         stuff = document.getElementById('age_selection');
         for(values of stuff.getElementsByTagName('input')) {
-            if(parseInt(values.labels[0].innerText.trim()) >= age) {
+            if(parseInt(values.labels[0].innerText.trim()) == age) {
                 values.checked = true;
             }
         }
     }
     
     function get_vaccines_filter() {
-        return get_checked_elements_from_selector('vaccine_filter');
+        return get_checked_elements_from_selector('vaccine_filter').map(ele=>ele.toLowerCase());
     }
     function set_vaccines_filter(vaccines) {
-        check_if_exists_in_array('vaccine_filter', vaccines);
+        check_if_exists_in_array('vaccine_filter', vaccines, toLowerCase=true);
     }
     
     function get_cost() {
@@ -155,10 +174,14 @@ function get_vaccination_centres(info) {
         }
         return filter_list;
     }
-    function check_if_exists_in_array(selector_id, array) {
+    function check_if_exists_in_array(selector_id, array, compare_with_lowercase=false) {
         main_tag = document.getElementById(selector_id);
         for(element of main_tag.getElementsByTagName('input')) {
-            if(array.includes(element.labels[0].innerText.trim())) {
+            element_text = element.labels[0].innerText.trim();
+            if(compare_with_lowercase){
+                element_text = element_text.toLowerCase();
+            }
+            if(array.includes(element_text)) {
                 element.checked = true;
             }
         }
