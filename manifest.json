@@ -10,10 +10,6 @@
       "default_title": "Cowin Tracker",
       "default_popup" : "popup.html"
     },
-    "background" : {
-      "scripts" : ["js/background.js"],
-      "persistent": false
-    },
     "permissions": [
       "storage"
     ]
