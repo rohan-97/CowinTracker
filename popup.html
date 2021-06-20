@@ -57,24 +57,27 @@
       <div class="collapsible-header"><i class="material-icons">settings</i>Settings</div>
       <div class="collapsible-body">
         
-        <form class="col s12">
+        <form id="settings_form" class="col s12" action="">
           <div class="input-field col s6">
             <i class="material-icons prefix">my_location</i>
-            <input id="icon_prefix" type="number" class="validate">
+            <input id="icon_prefix" id="pin_code" type="number" class="validate">
             <label for="icon_prefix">Pin Code</label>
           </div>
+          <p>Select Minimum Age</p>
           <p>
             <label>
-              <input type="checkbox" />
-              <span>Age 18+</span>
+              <input name="group1" type="radio" checked />
+              <span>18</span>
             </label>
           </p>
           <p>
             <label>
-              <input type="checkbox" />
-              <span>Age 45+</span>
+              <input name="group1" type="radio" />
+              <span>45</span>
             </label>
           </p>
+          
+          <p>Vaccine Type:</p>
           <p>
             <label>
               <input type="checkbox" />
@@ -93,6 +96,7 @@
               <span>Sputnik V</span>
             </label>
           </p>
+          <p>Vaccine Cost type:</p>
           <p>
             <label>
               <input type="checkbox" />
@@ -105,8 +109,8 @@
               <span>Paid</span>
             </label>
           </p>
-          <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-            <i class="material-icons right">send</i>
+          <button class="btn waves-effect waves-light" id="settings_save" type="button" name="action">Save
+            <i class="material-icons right">save</i>
           </button>
         </form>
         
